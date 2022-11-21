@@ -1,7 +1,7 @@
 import random
 from hangman_art import stages, logo
 from hangman_words import word_list
-  
+from replit import clear
 
 
 randomWord = random.choice(word_list)
@@ -16,11 +16,12 @@ print(logo)
 givenLetters = []
 while lives != 0 and "".join(a) != randomWord:
 	userLetter = input("Please enter a character to guess: ").lower()
-	
-	
+
 	if len(userLetter) > 1 or userLetter.isalpha() == False:
 		print('invalid input')
 	else:
+		clear()
+
 		isFound = 0
 		for i in range(0, len(randomWord)):
 			if userLetter == randomWord[i]:
@@ -32,27 +33,24 @@ while lives != 0 and "".join(a) != randomWord:
 		if isFound == 0 and  userLetter not in givenLetters:
 			givenLetters.append(userLetter)
 			lives -= 1 
-			print(f"You guessed {userLetter}, that's not in the word. You have {lives} more lives")
-		
+			print(f"""Letters guessed: {givenLetters}\nYou guessed {userLetter}, that's not in the word. You have {lives} more lives\n{stages[lives]}""")
 		elif userLetter in givenLetters:
-			print(f"You've already guessed {userLetter}")
-			print(stages[lives])
+			print(f"""Letters guessed: {givenLetters}\nYou've already guessed {userLetter}\n{stages[lives]}""")
+		
 		else:
-			
-			print(stages[lives])
-			print(f"{userLetter} is in the word!")
 			givenLetters.append(userLetter)
+			print(f"""Letters guessed: {givenLetters}\n {stages[lives]}\n{userLetter} is in the word!""")
 				
 		
-		
-		print(f"Letters guessed: {givenLetters}")
+			
+			
 		print("".join(a))
 	
 		
 if "".join(a) == randomWord:
-	print(f"You won the word was {randomWord}")
+	print(f"You won, the word was {randomWord}")
 
 else:
-	print(f"You lost the word was {randomWord}")
+	print(f"You lost, the word was {randomWord}")
 
 
